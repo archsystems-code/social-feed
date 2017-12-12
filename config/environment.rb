@@ -19,6 +19,7 @@ require 'twitter'
 
 require 'sinatra'
 require "sinatra/reloader" if development?
+require 'pry' if development?
 
 require 'erb'
 
