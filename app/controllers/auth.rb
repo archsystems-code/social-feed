@@ -9,8 +9,8 @@ get '/feed' do
     config.access_token        = "115142857-xvjmzCs1aWenj87eVfp8tUUL8RZKHVnByeQrmFkN"
     config.access_token_secret = "g9Evaj69qiES8t95dllO4KqNoybMye8OAaN0dfLA0s7AA"
   end
-  binding.pry
-  
+  response = client.search("#ASIMaterials")
+  return response.to_json
 end
 
 get '/signup' do
