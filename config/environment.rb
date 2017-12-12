@@ -15,6 +15,8 @@ require 'pg'
 require 'active_record'
 require 'logger'
 
+require 'twitter'
+
 require 'sinatra'
 require "sinatra/reloader" if development?
 
@@ -35,6 +37,13 @@ configure do
 
   # Set the views to
   set :views, File.join(Sinatra::Application.root, "app", "views")
+
+  set :twitter_client = Twitter::REST::Client.new do |config|
+    config.consumer_key        = "LbfLdXaUaKeqtKm4AR4mSiHtB"
+    config.consumer_secret     = "lItuxkAqx20xTIZVbNMWzHlZj7NzXXawx4PWJMmp1C8rDoL8JL"
+    config.access_token        = "115142857-xvjmzCs1aWenj87eVfp8tUUL8RZKHVnByeQrmFkN"
+    config.access_token_secret = "g9Evaj69qiES8t95dllO4KqNoybMye8OAaN0dfLA0s7AA"
+  end
 end
 
 # Set up the controllers and helpers
