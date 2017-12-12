@@ -1,0 +1,22 @@
+{
+  "name": "social-feed",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "node-sass": "^4.7.2",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
+    "react-scripts": "1.0.17",
+    "yarn-run-all": "^3.1.1"
+  },
+  "scripts": {
+    "build-css": "node-sass src/ -o src/",
+    "watch-css": "npm run build-css && node-sass src/ -o src/ --watch --recursive",
+    "start-js": "react-scripts start",
+    "start": "npm-run-all -p watch-css start-js",
+    "build": "yarn run build-css && react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "deploy": "yarn run build && surge -p build -d fertile-goose.surge.sh",
+    "eject": "react-scripts eject"
+  }
+}
