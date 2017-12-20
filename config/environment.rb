@@ -18,6 +18,7 @@ require 'logger'
 require 'selenium-webdriver'
 
 require 'sinatra'
+require 'sinatra/cross_origin'
 require "sinatra/reloader" if development?
 require 'pry' if development?
 
@@ -29,6 +30,7 @@ APP_ROOT = Pathname.new(File.expand_path('../../', __FILE__))
 APP_NAME = APP_ROOT.basename.to_s
 
 configure do
+  enable :cross_origin
   # By default, Sinatra assumes that the root is the file that calls the configure block.
   # Since this is not the case for us, we set it manually.
   set :root, APP_ROOT.to_path
@@ -39,6 +41,17 @@ configure do
   # Set the views to
   set :views, File.join(Sinatra::Application.root, "app", "views")
 
+end
+
+before do 
+  response.headers['Access-Control-Allow-Origin'] = '*'
+end
+
+options "*" do
+  response.headers["Allow"] = "HEAD,GET,PUT,POST,DELETE,OPTIONS"
+  response.headers["Access-Control-Allow-Headers"] = "Authorization, Content-Type, Accept, X-User-Email, X-Auth-Token"
+  response.headers["Access-Control-Allow-Origin"] = "*"
+  200
 end
 
 # Set up the controllers and helpers
