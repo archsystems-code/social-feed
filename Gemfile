@@ -14,8 +14,7 @@ gem 'bcrypt-ruby'
 gem 'rake'
 
 gem 'shotgun'
-
-gem 'twitter'
+gem 'selenium-webdriver'
 
 group :test do
   gem 'database_cleaner', '~> 1.4.1'
