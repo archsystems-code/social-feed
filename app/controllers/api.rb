@@ -5,7 +5,7 @@ end
 get '/api/v1/feed' do
   chromedriver_path = ENV['RACK_ENV'] == 'production' ? "/app/.chromedriver/bin/chromedriver" : File.join(File.absolute_path('../..', File.dirname(__FILE__)),"lib","chromedriver.exe")
   Selenium::WebDriver::Chrome.driver_path = chromedriver_path
-  options = Selenium::WebDriver::Chrome::Options.new(args: ['headless'])
+  options = ENV['RACK_ENV'] == 'production' ? Selenium::WebDriver::Chrome::Options.new(args: ['headless'], binary: "/app/.apt/usr/bin/google-chrome") : Selenium::WebDriver::Chrome::Options.new(args: ['headless'])
   driver = Selenium::WebDriver.for(:chrome, options: options)
   driver.get("https://twitter.com/search?q=asimaterials")
   tweets = driver.find_element(class_name: "stream-items").attribute("innerHTML")
