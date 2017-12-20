@@ -3,7 +3,7 @@ get '/' do
 end
 
 get '/api/v1/feed' do
-  chromedriver_path = File.join(File.absolute_path('../..', File.dirname(__FILE__)),"lib","chromedriver.exe")
+  chromedriver_path = ENV['RACK_ENV'] == 'production' ? ENV.fetch('GOOGLE_CHROME_SHIM', nil) : File.join(File.absolute_path('../..', File.dirname(__FILE__)),"lib","chromedriver.exe")
   Selenium::WebDriver::Chrome.driver_path = chromedriver_path
   options = Selenium::WebDriver::Chrome::Options.new(args: ['headless'])
   driver = Selenium::WebDriver.for(:chrome, options: options)
