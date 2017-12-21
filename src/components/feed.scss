@@ -1,0 +1,9 @@
+.Feed {
+  list-style-type: none;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.Feed li{
+  max-width: 400px;
+}

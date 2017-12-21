@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import renderHTML from 'react-render-html';
+import "./feed.css"
 
 class Feed extends Component {
   constructor(props) {
@@ -7,7 +8,7 @@ class Feed extends Component {
     this.state = {
       feed: [],
       isLoading: false,
-      error: null,
+      error: null
     }
   }
   
@@ -25,23 +26,23 @@ class Feed extends Component {
     .then(data => this.setState({feed: data, isLoading: false}))
     .catch(error => this.setState({error, isLoading: false}));
   }
+
   render() {
     const { feed, isLoading, error } = this.state;
     if (error) {
-      return <p>{error.message}</p>;
+      return <div className="Feed">
+          <iframe title="wallsio" allowFullScreen="" id="wallsio-iframe" src="https://walls.io/u6nur?nobackground=1&amp;theme=fluid&amp;hide_header=1" style={{ border: "0", height: "800px", width: "100%" }} />
+        </div>;
     }
     if (isLoading) {
       return <p>Loading Feed...</p>;
     }
-    console.log(feed)
-    return (
-      <div className="Feed">
-        <ul>
-          <li>Twitter</li>
-          {feed.twitter_html ? renderHTML(feed.twitter_html) : null}
+
+    return <div>
+        <ul className="Feed">
+          {feed.posts ? feed.posts.map((el, i) => { return renderHTML(`<li key={${i}}>${el}</li>`)}): null}
         </ul>
-      </div>
-    );
+      </div>;
   }
 }
  export default Feed;
