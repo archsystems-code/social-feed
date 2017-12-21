@@ -12,6 +12,9 @@
   overflow: hidden;
   margin: 0; }
 
+.Feed img {
+  max-width: 200px; }
+
 .stream-item-header,
 .js-tweet-text-container,
 .stream-item-footer {
