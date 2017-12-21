@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import renderHTML from 'react-render-html';
+import { CSSGrid, measureItems, makeResponsive } from "react-stonecutter";
 import "./feed.css"
 
 class Feed extends Component {
@@ -29,6 +30,9 @@ class Feed extends Component {
 
   render() {
     const { feed, isLoading, error } = this.state;
+    const Grid = makeResponsive(measureItems(CSSGrid, {measureImages: true}), {
+      maxWidth: 1920
+    });
     if (error) {
       return <div className="Feed">
           <iframe title="wallsio" allowFullScreen="" id="wallsio-iframe" src="https://walls.io/u6nur?nobackground=1&amp;theme=fluid&amp;hide_header=1" style={{ border: "0", height: "800px", width: "100%" }} />
@@ -38,10 +42,12 @@ class Feed extends Component {
       return <p>Loading Feed...</p>;
     }
 
-    return <div>
-        <ul className="Feed">
-          {feed.posts ? feed.posts.map((el, i) => { return renderHTML(`<li key={${i}}>${el}</li>`)}): null}
-        </ul>
+    return <div className="Feed">
+        {feed.posts ? <Grid component="ul" columnWidth={200} duration={800} columns={5}>
+            {feed.posts.map((el, i) => {
+              return <li key={i}>{renderHTML(el)}</li>;
+            })}
+          </Grid> : null}
       </div>;
   }
 }

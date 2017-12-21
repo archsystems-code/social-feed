@@ -1,9 +1,25 @@
 .Feed {
-  list-style-type: none;
-  display: flex;
-  flex-wrap: wrap;
+    list-style-type: none;
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    justify-content: center;
 }
 
-.Feed li{
-  max-width: 400px;
+.Feed ul {
+  list-style-type: none;
+  overflow: hidden;
+  margin: 0;
+}
+
+.stream-item-header,
+.js-tweet-text-container,
+.stream-item-footer {
+    display: none;
+}
+
+.AdaptiveMedia-singlePhoto {
+  padding-top: 0 !important;
 }
