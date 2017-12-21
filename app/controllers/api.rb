@@ -8,16 +8,15 @@ get '/api/v1/feed' do
   options = ENV['RACK_ENV'] == 'production' ? Selenium::WebDriver::Chrome::Options.new(args: ['headless'], binary: "/app/.apt/usr/bin/google-chrome") : Selenium::WebDriver::Chrome::Options.new(args: ['headless'])
   driver = Selenium::WebDriver.for(:chrome, options: options)
   driver.get("https://twitter.com/search?q=asimaterials")
-  tweets = driver.find_element(class_name: "stream-items").attribute("innerHTML")
-  driver.get("https://www.instagram.com/explore/tags/asimaterials/")
   posts = []
+  driver.find_elements(class_name: "stream-items").each do |element|
+    posts.push(element.attribute("innerHTML"))
+  end
+  driver.get("https://www.instagram.com/explore/tags/asimaterials/")
   driver.find_elements(class_name: "_4rbun").each do |element|
     posts.push(element.attribute("innerHTML"))
   end
   driver.quit
-  response = {
-    twitter_html: tweets,
-    instagram_html: posts
-  }
+  response = { posts: posts.shuffle }
   return response.to_json
 end
