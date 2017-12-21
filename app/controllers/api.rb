@@ -14,6 +14,7 @@ get '/api/v1/feed' do
   driver.find_elements(class_name: "_4rbun").each do |element|
     posts.push(element.attribute("innerHTML"))
   end
+  driver.quit
   response = {
     twitter_html: tweets,
     instagram_html: posts
