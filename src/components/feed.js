@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import renderHTML from 'react-render-html';
 import { CSSGrid, measureItems, makeResponsive } from "react-stonecutter";
-import "./feed.css"
+import ReactTooltip from 'react-tooltip';
+import "./feed.css";
 
 class Feed extends Component {
   constructor(props) {
@@ -11,6 +12,38 @@ class Feed extends Component {
       isLoading: false,
       error: null
     }
+  }
+
+  makeTooltip(element, i) {
+    function runDownElement(el) {
+      if (el.type === "img") {
+        if (el.props.className && !el.props.className.includes("avatar")) {
+          return <ReactTooltip id={i} aria-haspopup="true">
+            {el}
+          </ReactTooltip>;
+        } else if (!el.props.className) {
+          return <ReactTooltip id={i} aria-haspopup="true">
+            {el}
+          </ReactTooltip>;
+        }
+      } else if (el.props && el.props.children) {
+        el.props.children.forEach(elem => {
+          runDownElement(elem);
+        });
+      }
+    }
+    if (element.type === "img") {
+      return <ReactTooltip id={i} aria-haspopup='true'>
+        {element}
+      </ReactTooltip>
+    } else {
+      element.forEach(el => {
+        if (el.type) {
+          runDownElement(el)
+        }
+      });
+    }
+
   }
   
   componentDidMount() {
@@ -45,7 +78,10 @@ class Feed extends Component {
     return <div className="Feed">
         {feed.posts ? <Grid component="ul" columnWidth={200} duration={800} columns={5}>
             {feed.posts.map((el, i) => {
-              return <li key={i}>{renderHTML(el)}</li>;
+              return <li data-tip data-for={`post-${i}`} key={i}>
+                  {renderHTML(el)}
+                  {this.makeTooltip(renderHTML(el), `post-${i}`)}
+                </li>;
             })}
           </Grid> : null}
       </div>;
