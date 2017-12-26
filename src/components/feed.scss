@@ -18,6 +18,18 @@
   max-width: 200px;
 }
 
+.Feed--loading {
+  padding: 10px;
+  display: flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+}
+
+.Feed--loading svg {
+  padding: 25px;
+  width: 400px;
+}
+
 .stream-item-header,
 .js-tweet-text-container,
 .stream-item-footer {

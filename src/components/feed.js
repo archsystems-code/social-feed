@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import renderHTML from 'react-render-html';
 import { CSSGrid, measureItems, makeResponsive } from "react-stonecutter";
 import ReactTooltip from 'react-tooltip';
+import { FacebookLoader, InstagramLoader } from './Loading/feed';
 import "./feed.css";
 
 class Feed extends Component {
@@ -72,7 +73,17 @@ class Feed extends Component {
         </div>;
     }
     if (isLoading) {
-      return <p>Loading Feed...</p>;
+      return <div className="Feed--loading">
+        <FacebookLoader/>
+        <FacebookLoader/>
+        <FacebookLoader/>
+        <InstagramLoader/>
+        <InstagramLoader/>
+        <InstagramLoader/>
+        <FacebookLoader/>
+        <FacebookLoader/>
+        <FacebookLoader/>
+      </div>;
     }
 
     return <div className="Feed">
