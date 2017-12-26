@@ -9,7 +9,7 @@ get '/api/v1/feed' do
   driver = Selenium::WebDriver.for(:chrome, options: options)
   driver.get("https://twitter.com/search?q=asimaterials")
   posts = []
-  driver.find_elements(class_name: "js-stream-item").each do |element|
+  driver.find_elements(class_name: "AdaptiveMedia-photoContainer").each do |element|
     posts.push(element.attribute("innerHTML"))
   end
   driver.get("https://www.instagram.com/explore/tags/asimaterials/")
