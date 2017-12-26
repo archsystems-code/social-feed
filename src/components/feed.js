@@ -16,35 +16,32 @@ class Feed extends Component {
   }
 
   makeTooltip(element, i) {
-    function runDownElement(el) {
-      if (el.type === "img") {
-        if (el.props.className && !el.props.className.includes("avatar")) {
-          return <ReactTooltip id={i} aria-haspopup="true">
-            {el}
-          </ReactTooltip>;
-        } else if (!el.props.className) {
-          return <ReactTooltip id={i} aria-haspopup="true">
-            {el}
-          </ReactTooltip>;
-        }
-      } else if (el.props && el.props.children) {
-        el.props.children.forEach(elem => {
-          runDownElement(elem);
-        });
-      }
-    }
-    if (element.type === "img") {
+    const reactEl = renderHTML(element);
+    if (reactEl.type === "img") {
       return <ReactTooltip id={i} aria-haspopup='true'>
-        {element}
+        {reactEl}
       </ReactTooltip>
     } else {
-      element.forEach(el => {
+      return <ReactTooltip id={i} aria-haspopup='true'>
+        {reactEl[0]}
+        {reactEl[1]}
+      </ReactTooltip>
+    }
+  }
+
+  renderImage(element) {
+    const reactEl = renderHTML(element);
+    if (reactEl.type) {
+      return reactEl;
+    } else {
+      let returnedElement = [];
+      reactEl.forEach( el => {  
         if (el.type) {
-          runDownElement(el)
+          returnedElement.push(el);
         }
       });
+      return returnedElement[1];
     }
-
   }
   
   componentDidMount() {
@@ -90,8 +87,8 @@ class Feed extends Component {
         {feed.posts ? <Grid component="ul" columnWidth={200} duration={800} columns={5}>
             {feed.posts.map((el, i) => {
               return <li data-tip data-for={`post-${i}`} key={i}>
-                  {renderHTML(el)}
-                  {this.makeTooltip(renderHTML(el), `post-${i}`)}
+                  {this.renderImage(el)}
+                  {this.makeTooltip(el, `post-${i}`)}
                 </li>;
             })}
           </Grid> : null}
