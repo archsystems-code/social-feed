@@ -11,12 +11,8 @@ get '/api/v1/feed' do
   posts = []
   driver.find_elements(class_name: "js-stream-item").each do |element|
     post = ""
-    element.find_element(class_name: "js-tweet-text-container").each do |text|
-      post += text.attribute("innerHTML")
-    end
-    element.find_element(class_name: "AdaptiveMedia-photoContainer").each do |element|
-      post += element.attribute("innerHTML")
-    end
+    post += element.find_element(class_name: "js-tweet-text-container").attribute("innerHTML") 
+    post += element.find_element(class_name: "AdaptiveMedia-photoContainer").attribute("innerHTML") 
     posts.push(post)
   end
   driver.get("https://www.instagram.com/explore/tags/asimaterials/")
