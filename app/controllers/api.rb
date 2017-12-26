@@ -9,8 +9,15 @@ get '/api/v1/feed' do
   driver = Selenium::WebDriver.for(:chrome, options: options)
   driver.get("https://twitter.com/search?q=asimaterials")
   posts = []
-  driver.find_elements(class_name: "AdaptiveMedia-photoContainer").each do |element|
-    posts.push(element.attribute("innerHTML"))
+  driver.find_elements(class_name: "js-stream-item").each do |element|
+    post = ""
+    element.find_element(class_name: "js-tweet-text-container").each do |text|
+      post += text.attribute("innerHTML")
+    end
+    element.find_element(class_name: "AdaptiveMedia-photoContainer").each do |element|
+      post += element.attribute("innerHTML")
+    end
+    posts.push(post)
   end
   driver.get("https://www.instagram.com/explore/tags/asimaterials/")
   driver.find_elements(class_name: "_4rbun").each do |element|
