@@ -18,7 +18,7 @@ class Feed extends Component {
   makeTooltip(element, i) {
     const reactEl = renderHTML(element);
     if (reactEl.type === "img") {
-      return <ReactTooltip id={i} aria-haspopup='true'>
+      return <ReactTooltip type="light" id={i} aria-haspopup='true'>
         {reactEl.props.alt}
         {reactEl}
       </ReactTooltip>
@@ -29,7 +29,7 @@ class Feed extends Component {
           reactEls.push(el);
         }
       });
-      return <ReactTooltip id={i} aria-haspopup='true'>
+      return <ReactTooltip type="light" id={i} aria-haspopup='true'>
         {reactEls[0]}
         {reactEls[1]}
       </ReactTooltip>
@@ -49,6 +49,25 @@ class Feed extends Component {
         }
       });
       return returnedElement[1];
+    }
+  }
+
+  startRandomHover() {
+    const hoverRandomLi = () => {
+      const lis = Array.from(document.getElementsByTagName("li"));
+      lis.forEach(element => {
+        ReactTooltip.hide(element);
+      });
+      const randomLi = lis[Math.floor(Math.random()*lis.length)];
+      ReactTooltip.show(randomLi)
+    }
+    setInterval(hoverRandomLi, 8000)
+    // setTimeout(function(){debugger}, 10000)
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (this.state.feed.posts) {
+      this.startRandomHover()
     }
   }
   
