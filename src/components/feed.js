@@ -19,13 +19,21 @@ class Feed extends Component {
     const reactEl = renderHTML(element);
     if (reactEl.type === "img") {
       return <ReactTooltip id={i} aria-haspopup='true'>
+        {reactEl.props.alt}
         {reactEl}
       </ReactTooltip>
     } else {
+      const reactEls = []
+      reactEl.forEach(el => {
+        if (el.type) {
+          reactEls.push(el);
+        }
+      });
       return <ReactTooltip id={i} aria-haspopup='true'>
-        {reactEl[0]}
-        {reactEl[1]}
+        {reactEls[0]}
+        {reactEls[1]}
       </ReactTooltip>
+    
     }
   }
 
