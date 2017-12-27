@@ -10,7 +10,6 @@
     "react-dom": "^16.2.0",
     "react-render-html": "^0.6.0",
     "react-scripts": "1.0.17",
-    "react-stonecutter": "^0.3.8",
     "react-tooltip": "^3.4.0",
     "yarn-run-all": "^3.1.1"
   },

@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import renderHTML from 'react-render-html';
-import { CSSGrid, measureItems, makeResponsive } from "react-stonecutter";
 import ReactTooltip from 'react-tooltip';
 import { FacebookLoader, InstagramLoader } from './Loading/feed';
 import "./feed.css";
@@ -19,7 +18,7 @@ class Feed extends Component {
     const reactEl = renderHTML(element);
     if (reactEl.type === "img") {
       return <ReactTooltip type="light" id={i} aria-haspopup='true'>
-        {reactEl.props.alt}
+        <p>{reactEl.props.alt}</p>
         {reactEl}
       </ReactTooltip>
     } else {
@@ -53,21 +52,20 @@ class Feed extends Component {
   }
 
   startRandomHover() {
-    const hoverRandomLi = () => {
-      const lis = Array.from(document.getElementsByTagName("li"));
-      lis.forEach(element => {
+    const hoverRandomPost = () => {
+      const posts = Array.from(document.getElementsByClassName("Feed--brick"));
+      posts.forEach(element => {    
         ReactTooltip.hide(element);
       });
-      const randomLi = lis[Math.floor(Math.random()*lis.length)];
-      ReactTooltip.show(randomLi)
+      const randomPost = posts[Math.floor(Math.random()*posts.length)];
+      ReactTooltip.show(randomPost)
     }
-    setInterval(hoverRandomLi, 8000)
-    // setTimeout(function(){debugger}, 10000)
+    setInterval(hoverRandomPost, 8000)
   }
 
   componentDidUpdate(prevProps, prevState) {
     if (this.state.feed.posts) {
-      this.startRandomHover()
+      this.startRandomHover();
     }
   }
   
@@ -88,9 +86,6 @@ class Feed extends Component {
 
   render() {
     const { feed, isLoading, error } = this.state;
-    const Grid = makeResponsive(measureItems(CSSGrid, {measureImages: true}), {
-      maxWidth: 1920
-    });
     if (error) {
       return <div className="Feed">
           <iframe title="wallsio" allowFullScreen="" id="wallsio-iframe" src="https://walls.io/u6nur?nobackground=1&amp;theme=fluid&amp;hide_header=1" style={{ border: "0", height: "800px", width: "100%" }} />
@@ -111,14 +106,12 @@ class Feed extends Component {
     }
 
     return <div className="Feed">
-        {feed.posts ? <Grid component="ul" columnWidth={200} duration={800} columns={5}>
-            {feed.posts.map((el, i) => {
-              return <li data-tip data-for={`post-${i}`} key={i}>
-                  {this.renderImage(el)}
-                  {this.makeTooltip(el, `post-${i}`)}
-                </li>;
-            })}
-          </Grid> : null}
+        {feed.posts ? feed.posts.map((el, i) => {
+          return <div className="Feed--brick" data-tip data-for={`post-${i}`} key={i}>
+                    {this.renderImage(el)}
+                    {this.makeTooltip(el, `post-${i}`)}
+          </div>;
+        }) : null}
       </div>;
   }
 }
