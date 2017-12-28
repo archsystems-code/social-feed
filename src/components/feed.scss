@@ -1,6 +1,6 @@
 .Feed {
   column-width: 150px;
-  column-gap: 10px;
+  column-gap: 0px;
   width: 100%; 
   padding-top: 10px;
   background: #222;  /* fallback for old browsers */
@@ -17,6 +17,7 @@
 .Feed img {
   max-width: 200px;
   height: auto !important;
+  filter: grayscale(1);    
 }
 
 .Feed--loading {
@@ -46,6 +47,6 @@
   max-width: 400px;
   opacity: 1 !important;
   p { font-size: 20px; }
-  img { max-width: 300px; width: 300px !important; }
+  img { max-width: 300px; width: 300px !important; filter: none; }
   a { color: #e17b3b; }
 }
