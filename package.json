@@ -20,7 +20,7 @@
     "start": "npm-run-all -p watch-css start-js",
     "build": "yarn run build-css && react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "deploy": "yarn run build && surge -p build -d fertile-goose.surge.sh",
+    "deploy": "yarn run build && surge -p build -d asi-social-feed.surge.sh",
     "eject": "react-scripts eject"
   }
 }
