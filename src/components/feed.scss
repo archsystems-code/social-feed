@@ -1,8 +1,12 @@
 .Feed {
-  column-width: 200px;
-  column-gap: 0px;
+  column-width: 150px;
+  column-gap: 10px;
   width: 100%; 
-  padding-top: 100px;
+  padding-top: 10px;
+  background: #222;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to top, #e17b3b, #222);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to top, #e17b3b, #222); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  height: 100vh;
 }
 
 .Feed--brick {
@@ -42,6 +46,6 @@
   max-width: 400px;
   opacity: 1 !important;
   p { font-size: 20px; }
-  img { max-width: 400px; width: 400px !important; }
+  img { max-width: 300px; width: 300px !important; }
   a { color: #e17b3b; }
 }
