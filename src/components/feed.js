@@ -1,7 +1,9 @@
 import React, { Component } from "react";
-import renderHTML from 'react-render-html';
 import ReactTooltip from 'react-tooltip';
 import { FacebookLoader, InstagramLoader } from './Loading/feed';
+import './packery-mode.js';
+import Isotope from 'isotope-layout';
+import Post from './post.js';
 import "./feed.css";
 
 class Feed extends Component {
@@ -11,43 +13,6 @@ class Feed extends Component {
       feed: [],
       isLoading: false,
       error: null
-    }
-  }
-
-  makeTooltip(element, i) {
-    const reactEl = renderHTML(element);
-    if (reactEl.type === "img") {
-      return <ReactTooltip type="light" id={i} aria-haspopup='true'>
-        <p>{reactEl.props.alt}</p>
-        {reactEl}
-      </ReactTooltip>
-    } else {
-      const reactEls = []
-      reactEl.forEach(el => {
-        if (el.type) {
-          reactEls.push(el);
-        }
-      });
-      return <ReactTooltip type="light" id={i} aria-haspopup='true'>
-        {reactEls[0]}
-        {reactEls[1]}
-      </ReactTooltip>
-    
-    }
-  }
-
-  renderImage(element) {
-    const reactEl = renderHTML(element);
-    if (reactEl.type) {
-      return reactEl;
-    } else {
-      let returnedElement = [];
-      reactEl.forEach( el => {  
-        if (el.type) {
-          returnedElement.push(el);
-        }
-      });
-      return returnedElement[1];
     }
   }
 
@@ -63,8 +28,16 @@ class Feed extends Component {
     setInterval(hoverRandomPost, 8000)
   }
 
+  initIsoPackery() {
+    return new Isotope('.Feed', {
+      layoutMode: 'packery',
+      itemSelector: '.Feed--brick'
+    })
+  }
+
   componentDidUpdate(prevProps, prevState) {
     if (this.state.feed.posts) {
+      this.initIsoPackery();
       this.startRandomHover();
     }
   }
@@ -107,11 +80,9 @@ class Feed extends Component {
 
     return <div className="Feed">
         {feed.posts ? feed.posts.map((el, i) => {
-          return <div className="Feed--brick" data-tip data-for={`post-${i}`} key={i}>
-                    {this.renderImage(el)}
-                    {this.makeTooltip(el, `post-${i}`)}
-          </div>;
+          return <Post key={i} element={el} id={i} />
         }) : null}
+        <div className="Feed--overlay"></div>
       </div>;
   }
 }

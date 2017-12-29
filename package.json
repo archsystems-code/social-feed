@@ -3,6 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "isotope-layout": "git://github.com/metafizzy/isotope.git#master",
+    "isotope-packery": "^2.0.0",
+    "masonry-layout": "^4.2.0",
     "node-sass": "^4.7.2",
     "react": "^16.2.0",
     "react-content-loader": "^1.7.3",

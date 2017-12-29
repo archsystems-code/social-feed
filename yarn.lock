@@ -1833,6 +1833,10 @@ des.js@^1.0.0:
     inherits "^2.0.1"
     minimalistic-assert "^1.0.0"
 
+desandro-matches-selector@^2.0.0:
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/desandro-matches-selector/-/desandro-matches-selector-2.0.2.tgz#717beed4dc13e7d8f3762f707a6d58a6774218e1"
+
 destroy@~1.0.4:
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/destroy/-/destroy-1.0.4.tgz#978857442c44749e4206613e37946205826abd80"
@@ -2310,6 +2314,10 @@ etag@~1.8.1:
   version "1.8.1"
   resolved "https://registry.yarnpkg.com/etag/-/etag-1.8.1.tgz#41ae2eeb65efa62268aebfea83ac7d79299b0887"
 
+ev-emitter@^1.0.0:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/ev-emitter/-/ev-emitter-1.1.1.tgz#8f18b0ce5c76a5d18017f71c0a795c65b9138f2a"
+
 event-emitter@~0.3.5:
   version "0.3.5"
   resolved "https://registry.yarnpkg.com/event-emitter/-/event-emitter-0.3.5.tgz#df8c69eef1647923c7157b9ce83840610b02cc39"
@@ -2594,6 +2602,12 @@ find-up@^2.0.0, find-up@^2.1.0:
   dependencies:
     locate-path "^2.0.0"
 
+fizzy-ui-utils@^2.0.0, fizzy-ui-utils@^2.0.4:
+  version "2.0.5"
+  resolved "https://registry.yarnpkg.com/fizzy-ui-utils/-/fizzy-ui-utils-2.0.5.tgz#d72debc74d2c9d272dbcbb7b001707897f6c3210"
+  dependencies:
+    desandro-matches-selector "^2.0.0"
+
 flat-cache@^1.2.1:
   version "1.3.0"
   resolved "https://registry.yarnpkg.com/flat-cache/-/flat-cache-1.3.0.tgz#d3030b32b38154f4e3b7e9c709f490f7ef97c481"
@@ -2731,6 +2745,10 @@ generate-object-property@^1.1.0:
 get-caller-file@^1.0.1:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/get-caller-file/-/get-caller-file-1.0.2.tgz#f702e63127e7e231c160a80c1554acb70d5047e5"
+
+get-size@^2.0.0, get-size@^2.0.2:
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/get-size/-/get-size-2.0.2.tgz#555ea98ab8732e0c021e9e23e2219adcbe398e98"
 
 get-stdin@^4.0.1:
   version "4.0.1"
@@ -3437,6 +3455,33 @@ isomorphic-fetch@^2.1.1:
     node-fetch "^1.0.1"
     whatwg-fetch ">=0.10.0"
 
+isotope-layout@^3.0.0:
+  version "3.0.4"
+  resolved "https://registry.yarnpkg.com/isotope-layout/-/isotope-layout-3.0.4.tgz#f3ed8d15f8cfb3850b11777f1ca76e0a8bb5b73a"
+  dependencies:
+    desandro-matches-selector "^2.0.0"
+    fizzy-ui-utils "^2.0.4"
+    get-size "^2.0.0"
+    masonry-layout "^4.1.0"
+    outlayer "^2.1.0"
+
+"isotope-layout@git://github.com/metafizzy/isotope.git#master":
+  version "3.0.4"
+  resolved "git://github.com/metafizzy/isotope.git#65a03da9380b9304ffb3871ebb25aed7e62cc7f1"
+  dependencies:
+    desandro-matches-selector "^2.0.0"
+    fizzy-ui-utils "^2.0.4"
+    get-size "^2.0.0"
+    masonry-layout "^4.1.0"
+    outlayer "^2.1.0"
+
+isotope-packery@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/isotope-packery/-/isotope-packery-2.0.0.tgz#5dfd2f5802e2172b904fed460d34281d60db2235"
+  dependencies:
+    isotope-layout "^3.0.0"
+    packery "^2.0.0"
+
 isstream@~0.1.2:
   version "0.1.2"
   resolved "https://registry.yarnpkg.com/isstream/-/isstream-0.1.2.tgz#47e63f7af55afa6f92e1500e690eb8b8529c099a"
@@ -4062,6 +4107,13 @@ map-stream@~0.1.0:
   version "0.1.0"
   resolved "https://registry.yarnpkg.com/map-stream/-/map-stream-0.1.0.tgz#e56aa94c4c8055a16404a0674b78f215f7c8e194"
 
+masonry-layout@^4.1.0, masonry-layout@^4.2.0:
+  version "4.2.0"
+  resolved "https://registry.yarnpkg.com/masonry-layout/-/masonry-layout-4.2.0.tgz#43835c6b6e0d72eff2c31a118c8000cccc4ab965"
+  dependencies:
+    get-size "^2.0.2"
+    outlayer "^2.1.0"
+
 math-expression-evaluator@^1.2.14:
   version "1.2.17"
   resolved "https://registry.yarnpkg.com/math-expression-evaluator/-/math-expression-evaluator-1.2.17.tgz#de819fdbcd84dccd8fae59c6aeb79615b9d266ac"
@@ -4541,6 +4593,14 @@ osenv@0, osenv@^0.1.0, osenv@^0.1.4:
     os-homedir "^1.0.0"
     os-tmpdir "^1.0.0"
 
+outlayer@^2.0.0, outlayer@^2.1.0:
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/outlayer/-/outlayer-2.1.1.tgz#29863b6de10ea5dadfffcadfa0d728907387e9a2"
+  dependencies:
+    ev-emitter "^1.0.0"
+    fizzy-ui-utils "^2.0.0"
+    get-size "^2.0.2"
+
 p-finally@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/p-finally/-/p-finally-1.0.0.tgz#3fbcfb15b899a44123b34b6dcc18b724336a2cae"
@@ -4567,6 +4627,13 @@ package-json@^2.0.0:
     registry-auth-token "^3.0.1"
     registry-url "^3.0.3"
     semver "^5.1.0"
+
+packery@^2.0.0:
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/packery/-/packery-2.1.1.tgz#ec3711e96562b5ae206641e06854f899064a1b55"
+  dependencies:
+    get-size "^2.0.2"
+    outlayer "^2.0.0"
 
 pako@~1.0.5:
   version "1.0.6"

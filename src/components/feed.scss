@@ -1,23 +1,29 @@
 .Feed {
-  column-width: 150px;
-  column-gap: 0px;
-  width: 100%; 
-  padding-top: 10px;
+  height: 100% !important;
+  width: 100%;
+  margin: 0 auto;
   background: #222;  /* fallback for old browsers */
-  background: -webkit-linear-gradient(to top, #e17b3b, #222);  /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(to top, #e17b3b, #222); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-  height: 100vh;
+  background: -webkit-linear-gradient(to top, #444, #222);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to top, #444, #222); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 
 .Feed--brick {
-  display: inline-block;
-  column-break-inside: avoid;
+  width: 150px;
+  height: 150px;   
 }
 
-.Feed img {
-  max-width: 200px;
-  height: auto !important;
-  filter: grayscale(1);    
+.Feed--brick:nth-child(3n + 3) {
+  width: 300px;  
+  height: 300px;
+}
+
+.Feed--overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.75);
 }
 
 .Feed--loading {
@@ -44,9 +50,14 @@
 }
 
 .__react_component_tooltip {
-  max-width: 400px;
+  max-width: 800px;
   opacity: 1 !important;
-  p { font-size: 20px; }
-  img { max-width: 300px; width: 300px !important; filter: none; }
+  display: flex !important;
+  padding: 10px !important;
+  align-items: center;
+  flex-direction: row-reverse;
+  overflow: hidden;
+  p { font-size: 20px; margin-left: 10px; max-width: 390px}
+  img { width: 400px !important;}
   a { color: #e17b3b; }
 }
