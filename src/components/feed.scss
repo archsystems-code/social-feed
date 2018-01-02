@@ -8,8 +8,8 @@
 }
 
 .Feed--brick {
-  width: 150px;
-  height: 150px;   
+  width: 100px;
+  height: 100px;   
 }
 
 .Feed--brick:nth-child(3n + 3) {
@@ -58,6 +58,6 @@
   flex-direction: row-reverse;
   overflow: hidden;
   p { font-size: 20px; margin-left: 10px; max-width: 390px}
-  img { width: 400px !important;}
+  img { width: 300px !important;}
   a { color: #e17b3b; }
 }
