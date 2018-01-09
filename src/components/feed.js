@@ -58,44 +58,46 @@ class Feed extends Component {
       const position = getPosition(el);
       return getQuadrant(position.x, position.y, window.innerWidth, window.innerHeight);
     }
-
+    
     const isInViewport = (el) => {
       const top = el.getBoundingClientRect().top;
       return top >= 0 && top <= window.innerHeight;
     }
     
     const hoverRandomPost = () => {
-      const posts = Array.from(document.getElementsByClassName("Feed--brick"));
-      posts.forEach(element => {    
-        ReactTooltip.hide(element);
-      });
-      const randomPost = posts[Math.floor(Math.random()*posts.length)];
-      const tooltipPosition = calculatePosition(randomPost);
-      const isVisible = isInViewport(randomPost);
-      if (isVisible) {
-        switch (tooltipPosition) {
-          case "topleft":
+      if (!this.state.isLoading) {
+        const posts = Array.from(document.getElementsByClassName("Feed--brick"));
+        posts.forEach(element => {
+          ReactTooltip.hide(element);
+        });
+        const randomPost = posts[Math.floor(Math.random() * posts.length)];
+        const tooltipPosition = calculatePosition(randomPost);
+        const isVisible = isInViewport(randomPost);
+        if (isVisible) {
+          switch (tooltipPosition) {
+            case "topleft":
             randomPost.dataset.place = "bottom";
             randomPost.dataset.offset = "{'right': 250}";
             break;
-          case "topright":
+            case "topright":
             randomPost.dataset.place = "bottom";
             randomPost.dataset.offset = "{'left': 250}";
-            break; 
-          case "bottomleft":
+            break;
+            case "bottomleft":
             randomPost.dataset.place = "top";
             randomPost.dataset.offset = "{'right': 250}";
             break;
-          case "bottomright": 
+            case "bottomright":
             randomPost.dataset.place = "top";
             randomPost.dataset.offset = "{'left': 250}";
             break;
-          default:
+            default:
             console.log("nothing to do");
             break;
+          }
         }
-      }     
-      ReactTooltip.show(randomPost)
+        ReactTooltip.show(randomPost);
+      }
     }
     setInterval(hoverRandomPost, 8000)
   }
@@ -108,25 +110,31 @@ class Feed extends Component {
     iso.on( 'layoutComplete', this.startRandomHover());
   }
   
-  componentDidUpdate(prevProps, prevState) {
-    if (this.state.feed.posts) {
-      this.initIsoPackery();
-    }
-  }
-  
-  componentDidMount() {
-    this.setState({ isLoading: true});
-    
+  fetchPosts() {
+    this.setState({ isLoading: true });
     fetch("https://asi-social-feed.herokuapp.com/api/v1/feed")
-    .then( response => {
+    .then(response => {
       if (response.ok) {
         return response.json();
       } else {
         throw new Error("Something went wrong...");
       }
     })
-    .then(data => this.setState({feed: data, isLoading: false }))
-    .catch(error => this.setState({error, isLoading: false}));
+    .then(data => this.setState({ feed: data, isLoading: false }))
+    .catch(error => this.setState({ error, isLoading: false }));
+  }
+  
+  componentDidUpdate(prevProps, prevState) {
+    if (this.state.feed.posts && !this.state.isLoading) {
+      this.initIsoPackery();
+    }
+  }
+  
+  componentDidMount() {
+    this.fetchPosts()
+    setTimeout(() => {
+      this.fetchPosts()
+    }, 3600000);
   }
   
   render() {
