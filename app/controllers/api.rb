@@ -25,6 +25,6 @@ get '/api/v1/feed' do
     posts.push(element.attribute("innerHTML"))
   end
   driver.quit
-  response = { posts: posts }
+  response = { posts: posts.shuffle }
   return response.to_json
 end
