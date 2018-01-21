@@ -57,7 +57,16 @@
   align-items: center;
   flex-direction: row-reverse;
   overflow: hidden;
-  p { font-size: 20px; margin-left: 10px; max-width: 390px}
+  p { 
+    font-size: 20px; 
+    margin-left: 10px; 
+    max-width: 390px; 
+    line-height: 1.25em;
+    img {
+      height: 1em !important;
+      width: auto !important;
+    }
+  }
   img { width: 300px !important;}
   a { color: #e17b3b; }
 }
