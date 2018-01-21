@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactTooltip from 'react-tooltip';
 import renderHTML from 'react-render-html';
+import reactStringReplace from 'react-string-replace';
 
 const Post = ({element, id}) => {
 
@@ -25,8 +26,19 @@ const Post = ({element, id}) => {
   const makeTooltip = (element, i) => {
     const reactEl = renderHTML(element);
     if (reactEl.type === "img") {
+      const text = reactEl.props.alt
+      let replacedText
+      replacedText = reactStringReplace(text, /(https?:\/\/\S+)/g, (match, i) => (
+        <a key={match + i} href={match}>{match}</a>
+      ))
+      replacedText = reactStringReplace(replacedText, /@(\w+)/g, (match, i) => (
+        <a key={match + i} href={`https://instagram.com/${match}`}>@{match}</a>
+      ))
+      replacedText = reactStringReplace(replacedText, /#(\w+)/g, (match, i) => (
+        <a key={match + i} href={`https://www.instagram.com/explore/tags/${match}`}>#{match}</a>
+      ))
       return <ReactTooltip key={id} type="light" id={i} aria-haspopup='true'>
-        <p>{reactEl.props.alt}</p>
+        <p>{replacedText}</p>
         {reactEl}
       </ReactTooltip>
     } else {

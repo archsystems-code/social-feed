@@ -5370,6 +5370,12 @@ react-scripts@1.0.17:
   optionalDependencies:
     fsevents "1.1.2"
 
+react-string-replace@^0.4.1:
+  version "0.4.1"
+  resolved "https://registry.yarnpkg.com/react-string-replace/-/react-string-replace-0.4.1.tgz#024c6ac0a91163ecae439a1b197d3e1660c98c0d"
+  dependencies:
+    lodash "^4.17.4"
+
 react-tooltip@^3.4.0:
   version "3.4.0"
   resolved "https://registry.yarnpkg.com/react-tooltip/-/react-tooltip-3.4.0.tgz#037f38f797c3e6b1b58d2534ccc8c2c76af4f52d"
