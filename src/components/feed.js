@@ -11,23 +11,22 @@ class Feed extends Component {
     super(props);
     this.state = {
       feed: [],
-      isLoading: false,
-      error: null
+      isLoading: false
     }
   }
-  
+
   startRandomHover() {
     const calculatePosition = (el) => {
       const getPosition = (el) => {
         let xPos = 0;
         let yPos = 0;
-        
+
         while (el) {
           if (el.tagName === "BODY") {
             // deal with browser quirks with body/window/document and page scroll
             const xScroll = el.scrollLeft || document.documentElement.scrollLeft;
             const yScroll = el.scrollTop || document.documentElement.scrollTop;
-            
+
             xPos += el.offsetLeft - xScroll + el.clientLeft;
             yPos += el.offsetTop - yScroll + el.clientTop;
           } else {
@@ -35,7 +34,7 @@ class Feed extends Component {
             xPos += el.offsetLeft - el.scrollLeft + el.clientLeft;
             yPos += el.offsetTop - el.scrollTop + el.clientTop;
           }
-          
+
           el = el.offsetParent;
         }
         return { x: xPos, y: yPos };
@@ -58,12 +57,12 @@ class Feed extends Component {
       const position = getPosition(el);
       return getQuadrant(position.x, position.y, window.innerWidth, window.innerHeight);
     }
-    
+
     const isInViewport = (el) => {
       const top = el.getBoundingClientRect().top;
       return top >= 0 && top <= window.innerHeight;
     }
-    
+
     const hoverRandomPost = () => {
       if (!this.state.isLoading) {
         const posts = Array.from(document.getElementsByClassName("Feed--brick"));
@@ -101,7 +100,7 @@ class Feed extends Component {
     }
     setInterval(hoverRandomPost, 8000)
   }
-  
+
   initIsoPackery() {
     const iso = new Isotope('.Feed', {
       layoutMode: 'packery',
@@ -109,7 +108,7 @@ class Feed extends Component {
     })
     iso.on( 'layoutComplete', this.startRandomHover());
   }
-  
+
   fetchPosts() {
     this.setState({ isLoading: true });
     fetch("https://asi-social-feed.herokuapp.com/api/v1/feed")
@@ -121,29 +120,27 @@ class Feed extends Component {
       }
     })
     .then(data => this.setState({ feed: data, isLoading: false }))
-    .catch(error => this.setState({ error, isLoading: false }));
+    .catch(error => {
+      console.error(error);
+      this.setState({ isLoading: false });
+    });
   }
-  
+
   componentDidUpdate(prevProps, prevState) {
     if (this.state.feed.posts && !this.state.isLoading) {
       this.initIsoPackery();
     }
   }
-  
+
   componentDidMount() {
     this.fetchPosts()
     setTimeout(() => {
       this.fetchPosts()
     }, 3600000);
   }
-  
+
   render() {
-    const { feed, isLoading, error } = this.state;
-    if (error) {
-      return <div className="Feed">
-      <iframe title="wallsio" allowFullScreen="" id="wallsio-iframe" src="https://walls.io/u6nur?nobackground=1&amp;theme=fluid&amp;hide_header=1" style={{ border: "0", height: "800px", width: "100%" }} />
-      </div>;
-    }
+    const { feed, isLoading } = this.state;
     if (isLoading) {
       return <div className="Feed--loading">
       <FacebookLoader/>
@@ -157,7 +154,7 @@ class Feed extends Component {
       <FacebookLoader/>
       </div>;
     }
-    
+
     return <div className="Feed">
     {feed.posts ? feed.posts.map((el, i) => {
       return <Post key={i} element={el} id={i} />
