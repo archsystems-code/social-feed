@@ -21,8 +21,7 @@ get '/api/v1/feed' do
     end
   end
   driver.get("https://www.instagram.com/explore/tags/asimaterials/")
-  driver.find_elements(tag_name: "a").each do |element|
-    puts element
+  driver.find_elements(class_name: "KL4Bh").each do |element|
     posts.push(element.attribute("innerHTML"))
   end
   driver.quit
